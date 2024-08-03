@@ -1,7 +1,7 @@
 # JEE Planner
 
 JEE Planner is a user authenticated task management application designed to help students preparing for the Joint Entrance Examination (JEE). It provides a user-friendly interface for creating, editing, and deleting subject-wise tasks and personal notes. You also get notifications based on priority and tasks are sorted  by priority.
-You also get a Archive Storage for your past papers.
+and an Archive Storage for your past papers.
 
 
 ## Features
