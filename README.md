@@ -10,7 +10,7 @@ You also get a Archive Storage for your past papers.
 - **Priority Notifications**: Receive notifications based on task priority.
 - **Task Sorting**: Sort tasks according to their priority for each subject.
 - **Notes**: Create, update, and delete notes.
-
+- **Authentication**: Create, update, login, logout and delete users along with reset password.
 
 ## Tech Stack
 
