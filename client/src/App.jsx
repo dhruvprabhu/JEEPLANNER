@@ -4,22 +4,21 @@ import Header from './components/Cards/Header';
 import CategoryCards from './components/Cards/CategoryCards';
 import Auth from './components/Auth/Auth';
 import ResetPassword from './components/Auth/ResetPassword';
+import TaskNotification from './components/Notifications/TaskNotification';
 
 const App = () => {
   return (
     <Router>
-      <Routes>
-        {/* Redirect to /auth when the app starts */}
-        <Route path="/" element={<Navigate to="/auth" />} />
 
-        <Route path="/auth/*" element={<Auth />} /> {/* Ensure all auth routes are under /auth */}
+      <Routes>
+        <Route path="/" element={<Navigate to="/auth" />} />
+        <Route path="/auth/*" element={<Auth />} />
         <Route path="/reset-pass/:userId/:token" element={<ResetPassword />} />
-        
-        {/* Private route for authenticated content */}
         <Route
           path="/dashboard"
           element={
             <div>
+              <TaskNotification />
               <Header />
               <CategoryCards />
             </div>
