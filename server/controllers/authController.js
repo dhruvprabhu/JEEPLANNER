@@ -42,10 +42,6 @@ const transporter = nodemailer.createTransport({
 });
 
 
-
-
-
-
 const register = async (req, res) => {
     const { username, password, email } = req.body;
 
@@ -77,7 +73,19 @@ const register = async (req, res) => {
         res.status(201).json({ message: 'User registered successfully', accessToken, refreshToken });
     } catch (error) {
         console.error('Error registering user:', error);
-        res.status(500).json({ message: 'Internal server error' });
+        
+        // Handle duplicate entry errors
+        if (error.code === 'ER_DUP_ENTRY') {
+            if (error.sqlMessage.includes('username')) {
+                res.status(409).json({ message: 'Username already exists' });
+            } else if (error.sqlMessage.includes('email')) {
+                res.status(409).json({ message: 'Email already exists' });
+            } else {
+                res.status(409).json({ message: 'User already exists' });
+            }
+        } else {
+            res.status(500).json({ message: 'Internal server error' });
+        }
     }
 };
 
