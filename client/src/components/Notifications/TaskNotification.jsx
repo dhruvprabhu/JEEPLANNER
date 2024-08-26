@@ -18,11 +18,14 @@ const sendNotification = (title, body) => {
 
 const checkAndNotify = async (priority) => {
   try {
-    const response = await axios.get(`${process.env.REACT_APP_API_TASKS_URL}/tasks-by-priority`);
+    const response = await axios.get('http://localhost:5000/api/tasks/tasks-by-priority');
     const tasks = response.data[priority];
 
     if (tasks.length > 0) {
-      sendNotification(`${priority.charAt(0).toUpperCase() + priority.slice(1)} Priority Tasks`, `Complete your ${priority.toUpperCase()} priority tasks.`);
+      sendNotification(
+        `${priority.charAt(0).toUpperCase() + priority.slice(1)} Priority Tasks`,
+        `Complete your ${priority.toUpperCase()} priority tasks.`
+      );
     }
   } catch (error) {
     console.error('Error checking tasks:', error);
@@ -58,8 +61,14 @@ const scheduleNotifications = () => {
 
 const TaskNotification = () => {
   useEffect(() => {
-    requestNotificationPermission();
-    scheduleNotifications();
+    const setupNotifications = async () => {
+      const permission = await requestNotificationPermission();
+      if (permission === 'granted') {
+        scheduleNotifications();
+      }
+    };
+
+    setupNotifications();
   }, []);
 
   return null;
